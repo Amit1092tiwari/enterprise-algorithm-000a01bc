@@ -41,6 +41,7 @@ jobs:
       - name: Test Database Tips and Tricks Functions & Procedures
         run: |
           sqlcmd -S localhost,1433 -U sa -P 'ArchitectPassword123!' -C -b -i "Database Tips and Tricks/Calendar Table/FnReturnCalendarTable.sql"
+          sqlcmd -S localhost,1433 -U sa -P 'ArchitectPassword123!' -C -b -i "Database Tips and Tricks/Calendar Table/SpDailyCalendarRollingUpdate.sql"
           sqlcmd -S localhost,1433 -U sa -P 'ArchitectPassword123!' -C -b -i "Database Tips and Tricks/Subtracting Two Dates/FnDateDiffPartsChar.sql"
           sqlcmd -S localhost,1433 -U sa -P 'ArchitectPassword123!' -C -b -i "Database Tips and Tricks/Subtracting Two Dates/FnDateDiffPartsTable.sql"
           sqlcmd -S localhost,1433 -U sa -P 'ArchitectPassword123!' -C -b -i "Database Tips and Tricks/Pivoting Data/SpPivotData.sql"

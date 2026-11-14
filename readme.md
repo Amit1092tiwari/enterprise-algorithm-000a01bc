@@ -1,6 +1,7 @@
 # Enterprise SQL & Cloud Data Engineering Masterclass
 
 [![SQL Engine CI](https://github.com/Amit1092tiwari/Advancesqlpuzzle/actions/workflows/sql-ci.yml/badge.svg)](https://github.com/Amit1092tiwari/Advancesqlpuzzle/actions/workflows/sql-ci.yml)
+[![Daily Batch Job](https://github.com/Amit1092tiwari/Advancesqlpuzzle/actions/workflows/daily-batch.yml/badge.svg)](https://github.com/Amit1092tiwari/Advancesqlpuzzle/actions/workflows/daily-batch.yml)
 [![Pages Deployment](https://github.com/Amit1092tiwari/Advancesqlpuzzle/actions/workflows/static.yml/badge.svg)](https://github.com/Amit1092tiwari/Advancesqlpuzzle/actions/workflows/static.yml)
 [![Platform](https://img.shields.io/badge/Platform-MSSQL%20%7C%20PostgreSQL%20%7C%20Snowflake%20%7C%20BigQuery%20%7C%20DuckDB-blue.svg)](#cross-engine-capability-matrix)
 [![Cloud](https://img.shields.io/badge/Azure-Data%20Factory%20%7C%20Databricks%20%7C%20Delta%20Lake%20%7C%20Terraform-orange.svg)](#-microsoft-azure-cloud-data-engineering--iac)
@@ -48,6 +49,7 @@ Browse and search all 55 puzzles, utilities, and whitepapers via the live GitHub
 Advancesqlpuzzle/
 ├── .github/
 │   └── workflows/
+│       ├── daily-batch.yml                     # Scheduled daily regression & polyglot benchmark batch job
 │       ├── sql-ci.yml                          # Ephemeral MSSQL 2022 container CI testing
 │       └── static.yml                          # GitHub Pages automated deployment pipeline
 ├── Advanced SQL Puzzles/
@@ -56,7 +58,7 @@ Advancesqlpuzzle/
 │   ├── Advanced SQL Puzzles Solutions.sql      # Multi-strategy T-SQL solutions
 │   └── readme.md
 ├── Database Tips and Tricks/
-│   ├── Calendar Table/                         # High-performance calendar dimension ITVF
+│   ├── Calendar Table/                         # High-performance calendar dimension ITVF & daily rolling proc
 │   ├── Data Profiling/                         # Table metadata, statistical distributions, & quality profiler
 │   ├── Pivoting Data/                          # SQL-injection safe dynamic PIVOT stored procedure
 │   ├── Subtracting Two Dates/                  # Nanosecond-precision interval difference routines
@@ -68,7 +70,7 @@ Advancesqlpuzzle/
 │   └── readme.md
 ├── Microsoft Azure/
 │   ├── Infrastructure as Code/                 # One-click Terraform (main.tf) & Azure Bicep
-│   ├── Data Factory Metadata Demo/             # ADF metadata auditing & TVP ingestion pipeline
+│   ├── Data Factory Metadata Demo/             # ADF metadata auditing, TVP pipeline & DailyScheduleTrigger.json
 │   ├── Databricks Spark Hive Demo/             # Spark SQL, Hive metastore, & Delta Lake integration
 │   └── readme.md
 ├── Multi-Dialect Solutions/
@@ -78,6 +80,8 @@ Advancesqlpuzzle/
 │   ├── BigQuery_Solutions.sql                  # Google BigQuery solutions (COUNTIF, STRUCTs)
 │   ├── DuckDB_Solutions.sql                    # Fast in-memory analytical SQL solutions
 │   └── readme.md
+├── scripts/
+│   └── daily_benchmark.py                      # Multi-dialect DuckDB benchmark & assertion engine
 ├── .gitattributes                              # Clean EOL normalization & binary rules
 ├── .nojekyll                                   # Bypasses Jekyll on GitHub Pages
 ├── index.html                                  # Modern, client-side searchable web portal

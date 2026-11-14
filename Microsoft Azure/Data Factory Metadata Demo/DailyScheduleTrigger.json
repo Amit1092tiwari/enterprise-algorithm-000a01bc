@@ -1,0 +1,32 @@
+{
+  "name": "Trigger_DailyMidnightIngestion",
+  "properties": {
+    "description": "Daily scheduled batch trigger firing at 00:00 UTC to orchestrate metadata harvesting, TVP database loading, and Delta Lake merges.",
+    "type": "ScheduleTrigger",
+    "typeProperties": {
+      "recurrence": {
+        "frequency": "Day",
+        "interval": 1,
+        "startTime": "2026-01-01T00:00:00Z",
+        "timeZone": "UTC",
+        "schedule": {
+          "hours": [0],
+          "minutes": [0]
+        }
+      }
+    },
+    "pipelines": [
+      {
+        "pipelineReference": {
+          "referenceName": "Pipeline1_HarvestFileMetadata",
+          "type": "PipelineReference"
+        },
+        "parameters": {
+          "ExecutionEnvironment": "Production",
+          "SourceContainer": "raw",
+          "TargetContainer": "curated"
+        }
+      }
+    ]
+  }
+}

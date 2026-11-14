@@ -25,6 +25,7 @@ While traditional implementations rely on pre-populated physical tables or slow 
 |:---|:---|
 | [`FnReturnCalendarTable.sql`](file:///c:/Users/amitt/Documents/github/Advancesqlpuzzle/Database%20Tips%20and%20Tricks/Calendar%20Table/FnReturnCalendarTable.sql) | Source code defining the `FnReturnCalendarTable` inline table-valued function. |
 | [`FnReturnCalendarTable Example Use.sql`](file:///c:/Users/amitt/Documents/github/Advancesqlpuzzle/Database%20Tips%20and%20Tricks/Calendar%20Table/FnReturnCalendarTable%20Example%20Use.sql) | Usage patterns: standalone queries, persistent table population, views, and `CROSS APPLY` joins. |
+| [`SpDailyCalendarRollingUpdate.sql`](file:///c:/Users/amitt/Documents/github/Advancesqlpuzzle/Database%20Tips%20and%20Tricks/Calendar%20Table/SpDailyCalendarRollingUpdate.sql) | Daily batch maintenance procedure recalibrating rolling relative horizons (`IsCurrentDay`, `DaysFromToday`, `IsRolling30Days`, etc.) at midnight. |
 
 ---
 
