@@ -1,21 +1,44 @@
-# Advanced SQL Puzzles & Enterprise Database Engineering
+# Enterprise SQL & Cloud Data Engineering Masterclass
 
 [![SQL Engine CI](https://github.com/Amit1092tiwari/Advancesqlpuzzle/actions/workflows/sql-ci.yml/badge.svg)](https://github.com/Amit1092tiwari/Advancesqlpuzzle/actions/workflows/sql-ci.yml)
 [![Pages Deployment](https://github.com/Amit1092tiwari/Advancesqlpuzzle/actions/workflows/static.yml/badge.svg)](https://github.com/Amit1092tiwari/Advancesqlpuzzle/actions/workflows/static.yml)
-[![Platform](https://img.shields.io/badge/Platform-Microsoft%20SQL%20Server%20%7C%20Azure%20SQL%20%7C%20Databricks-blue.svg)](https://azure.microsoft.com/)
-[![Dialect](https://img.shields.io/badge/Dialect-T--SQL%20%7C%20ANSI--SQL-orange.svg)](#)
-[![Puzzles](https://img.shields.io/badge/Puzzles-55%20Solved-brightgreen.svg)](#55-advanced-sql-puzzles-directory)
+[![Platform](https://img.shields.io/badge/Platform-MSSQL%20%7C%20PostgreSQL%20%7C%20Snowflake%20%7C%20BigQuery%20%7C%20DuckDB-blue.svg)](#cross-engine-capability-matrix)
+[![Cloud](https://img.shields.io/badge/Azure-Data%20Factory%20%7C%20Databricks%20%7C%20Delta%20Lake%20%7C%20Terraform-orange.svg)](#-microsoft-azure-cloud-data-engineering--iac)
+[![Puzzles](https://img.shields.io/badge/Puzzles-55%20Core%20%2B%2011%20Bonus-brightgreen.svg)](#-55-advanced-sql-puzzles-directory)
 
-A comprehensive repository of **55 Advanced SQL Puzzles**, enterprise database utility routines, metadata profilers, technical papers on relational database internals, and Microsoft Azure cloud data engineering architectures.
+A production-grade relational database and cloud data engineering benchmark platform. This repository bridges theoretical set-based relational problem-solving with enterprise data engineering patterns across **Microsoft SQL Server (T-SQL)**, **PostgreSQL 16+**, **Snowflake**, **Google BigQuery**, **DuckDB**, and **Microsoft Azure**.
 
-All puzzle solutions and database routines are authored in **Microsoft SQL Server T-SQL** (compatible with SQL Server 2016–2022, Azure SQL Database, Azure Synapse, and adaptable to PostgreSQL, Snowflake, Databricks Spark SQL, and Google BigQuery).
+---
+
+## 🌟 Why This Repository Exists: The Enterprise Evolution
+
+Most online SQL puzzle resources exist as isolated snippets or static PDFs focused solely on single-engine syntax. This repository elevates the classic puzzle corpus into a **modern, polyglot software engineering benchmark**:
+
+1. **Zero Binary Bloat (100% Markdown):** All legacy PDF and PPTX files have been excised and transcribed into version-controlled Markdown with KaTeX math, Mermaid query lifecycles, and Three-Valued Logic (3VL) truth tables.
+2. **Multi-Dialect Polyglot Architectures:** Concrete, runnable solutions demonstrating how the same relational problem is tackled using modern cloud primitives—such as Snowflake's `MATCH_RECOGNIZE`, BigQuery's `QUALIFY` and `COUNTIF()`, and PostgreSQL's `FILTER (WHERE ...)` and array operators.
+3. **Automated Dockerized CI Pipeline:** Every commit boots an ephemeral **Microsoft SQL Server 2022** Linux container to compile and validate all DDL, stored procedures, and functions.
+4. **Security & Performance Hardening:** Production-grade security optimizations (e.g. `QUOTENAME()` escaping and aggregate whitelisting in dynamic PIVOT stored procedures) and zero-overhead inline table-valued functions (iTVFs).
+5. **Production Cloud Data Engineering & IaC:** Real-world Azure Data Factory metadata ingestion pipelines, Databricks Spark and Delta Lake architectures, accompanied by **Terraform and Azure Bicep Infrastructure-as-Code (IaC)**.
 
 ---
 
 ## 🌐 Interactive Web Portal
 
-This repository deploys an interactive, searchable portal via GitHub Pages:
-👉 **[Launch Advanced SQL Puzzles Web Directory](https://amit1092tiwari.github.io/Advancesqlpuzzle/)**
+Browse and search all 55 puzzles, utilities, and whitepapers via the live GitHub Pages portal:  
+👉 **[Launch Enterprise SQL Web Directory](https://amit1092tiwari.github.io/Advancesqlpuzzle/)**
+
+---
+
+## ⚡ Cross-Engine Capability Matrix
+
+| Architectural Pattern | Microsoft SQL Server (T-SQL) | PostgreSQL (16+) | Snowflake | Google BigQuery | DuckDB |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Window Filtering (`QUALIFY`)** | ❌ (CTE Wrapping) | ❌ (CTE Wrapping) | ✅ Native Storage Pushdown | ✅ Native Storage Pushdown | ✅ Native In-Memory |
+| **Row Pattern (`MATCH_RECOGNIZE`)** | ❌ | ❌ | ✅ Native $O(N)$ Streaming | ❌ | ✅ Native Vectorized |
+| **Recursive Syntax** | `WITH cte AS (...)` | `WITH RECURSIVE` | `WITH RECURSIVE` / `CONNECT BY` | `WITH RECURSIVE` | `WITH RECURSIVE` |
+| **Conditional Aggregation** | `SUM(CASE WHEN ...)` | `SUM(...) FILTER (WHERE ...)` | `COUNT_IF(...)` / `IFF()` | `COUNTIF(...)` | `SUM(...) FILTER (WHERE ...)` |
+| **Native Array Types** | ❌ (JSON Strings) | ✅ Native Array (`=`, `&&`) | ✅ Native Array / Variant | ✅ Native Array / Struct | ✅ Native List / Struct |
+| **Set Difference** | `EXCEPT` | `EXCEPT` | `EXCEPT` / `MINUS` | `EXCEPT DISTINCT` | `EXCEPT` |
 
 ---
 
@@ -25,34 +48,40 @@ This repository deploys an interactive, searchable portal via GitHub Pages:
 Advancesqlpuzzle/
 ├── .github/
 │   └── workflows/
-│       ├── sql-ci.yml              # Ephemeral MSSQL 2022 container automated CI testing
-│       └── static.yml              # GitHub Pages deployment pipeline
+│       ├── sql-ci.yml                          # Ephemeral MSSQL 2022 container CI testing
+│       └── static.yml                          # GitHub Pages automated deployment pipeline
 ├── Advanced SQL Puzzles/
-│   ├── Advanced SQL Puzzles DDL.sql        # Schemas and sample data for Puzzles #1 - #55
-│   ├── Advanced SQL Puzzles Solutions.sql  # Multi-strategy solutions for Puzzles #1 - #55
-│   ├── ADVANCED_SQL_PUZZLES.md             # Complete specifications for 55 puzzles + 11 bonus puzzles
+│   ├── ADVANCED_SQL_PUZZLES.md                 # Complete specs for 55 puzzles + 11 bonus puzzles
+│   ├── Advanced SQL Puzzles DDL.sql            # Schemas & sample data for Puzzles #1 - #55
+│   ├── Advanced SQL Puzzles Solutions.sql      # Multi-strategy T-SQL solutions
 │   └── readme.md
 ├── Database Tips and Tricks/
-│   ├── Calendar Table/             # High-performance calendar dimension function (ITVF)
-│   ├── Data Profiling/             # Table metadata, statistical distributions, & quality profiler
-│   ├── Pivoting Data/              # SQL-injection safe dynamic PIVOT stored procedure
-│   ├── Subtracting Two Dates/      # Nanosecond-precision interval difference routines
+│   ├── Calendar Table/                         # High-performance calendar dimension ITVF
+│   ├── Data Profiling/                         # Table metadata, statistical distributions, & quality profiler
+│   ├── Pivoting Data/                          # SQL-injection safe dynamic PIVOT stored procedure
+│   ├── Subtracting Two Dates/                  # Nanosecond-precision interval difference routines
 │   └── readme.md
 ├── Database Writings/
-│   ├── Advanced SQL Joins/         # Mechanics of SQL joins & NULL handling (Markdown Guide + SQL)
-│   ├── Behavior Of Nulls/          # Three-valued logic & boolean evaluation (Markdown Guide + SQL)
-│   ├── Database Concepts And Components/ # Engine internals, storage, ACID, & indexing
+│   ├── Advanced SQL Joins/                     # Mechanics of SQL joins, 3VL, & physical operators
+│   ├── Behavior Of Nulls/                      # Three-valued logic whitepaper & truth tables
+│   ├── Database Concepts And Components/       # 129 core engine, storage, and indexing Q&As
 │   └── readme.md
 ├── Microsoft Azure/
-│   ├── Data Factory Metadata Demo/ # ADF metadata auditing & TVP ingestion pipeline
-│   ├── Databricks Spark Hive Demo/ # Spark SQL, Hive metastore, & Delta Lake integration
+│   ├── Infrastructure as Code/                 # One-click Terraform (main.tf) & Azure Bicep
+│   ├── Data Factory Metadata Demo/             # ADF metadata auditing & TVP ingestion pipeline
+│   ├── Databricks Spark Hive Demo/             # Spark SQL, Hive metastore, & Delta Lake integration
 │   └── readme.md
-├── Multi-Dialect Solutions/        # Cross-engine guides (T-SQL, PostgreSQL, Snowflake, BigQuery, DuckDB)
-│   ├── MULTI_DIALECT_GUIDE.md      # Paradigm analysis (Gaps & Islands, MATCH_RECOGNIZE, QUALIFY)
+├── Multi-Dialect Solutions/
+│   ├── MULTI_DIALECT_GUIDE.md                  # Paradigm guide: Gaps & Islands, QUALIFY, Recursion
+│   ├── PostgreSQL_Solutions.sql                # PostgreSQL 16+ solutions (FILTER, Arrays, CTEs)
+│   ├── Snowflake_Solutions.sql                 # Snowflake solutions (MATCH_RECOGNIZE, QUALIFY)
+│   ├── BigQuery_Solutions.sql                  # Google BigQuery solutions (COUNTIF, STRUCTs)
+│   ├── DuckDB_Solutions.sql                    # Fast in-memory analytical SQL solutions
 │   └── readme.md
-├── .gitattributes                  # EOL normalization & binary tracking
-├── index.html                      # Modern, searchable web landing page
-└── readme.md                       # Main architectural documentation
+├── .gitattributes                              # Clean EOL normalization & binary rules
+├── .nojekyll                                   # Bypasses Jekyll on GitHub Pages
+├── index.html                                  # Modern, client-side searchable web portal
+└── readme.md                                   # Masterclass architectural documentation
 ```
 
 ---
@@ -96,14 +125,23 @@ The puzzles test deep problem-solving skills across complex relational algorithm
 
 ---
 
-## ☁️ Microsoft Azure Data Engineering Architectures
+## ☁️ Microsoft Azure Cloud Data Engineering & IaC
 
-### 1. Azure Data Factory Metadata Ingestion Pattern
+### 1. One-Click Cloud Infrastructure (Terraform & Bicep)
+- Automated deployment scripts in [`Microsoft Azure/Infrastructure as Code/`](file:///c:/Users/amitt/Documents/github/Advancesqlpuzzle/Microsoft%20Azure/Infrastructure%20as%20Code/).
+- Provisions: Azure Resource Group, Azure Data Lake Storage Gen2 (`raw`, `curated`, `metadata`), Azure SQL Database, Azure Data Factory (v2) with managed identities, and Azure Databricks.
+
+```bash
+cd "Microsoft Azure/Infrastructure as Code"
+terraform init && terraform apply
+```
+
+### 2. Azure Data Factory Metadata Ingestion Pattern
 - Automated metadata harvesting (file size, MD5 hash, column counts, pipeline run IDs).
 - Stored procedure ingestion via Table-Valued Parameters (TVP) for high-throughput batching.
 - Right-sized enterprise schema data types (`BIGINT` for file sizes, `UNIQUEIDENTIFIER` for run GUIDs, `CHAR(32)` for MD5 hashes).
 
-### 2. Databricks Spark & Hive Metastore Integration
+### 3. Databricks Spark & Hive Metastore Integration
 - Classic Suppliers-Parts-Shipments relational design.
 - Includes Databricks notebook workspace (`SuppliersAndParts.dbc`) and source SQL Server DDL (`SuppliersAndPartsDDL.sql`).
 
@@ -112,23 +150,23 @@ The puzzles test deep problem-solving skills across complex relational algorithm
 ## 🚀 Getting Started
 
 ### Prerequisites
-- **Microsoft SQL Server 2016+** / **Azure SQL Database** / **Azure SQL Managed Instance**
-- **SQL Server Management Studio (SSMS)**, **Azure Data Studio**, or the `sqlcmd` utility.
+- **Database Engine:** Microsoft SQL Server 2016+, PostgreSQL 16+, Snowflake, Google BigQuery, or DuckDB.
+- **Client Tools:** SQL Server Management Studio (SSMS), Azure Data Studio, DBeaver, or VS Code.
 
-### Running Puzzles Locally
+### Running Puzzles Locally (SQL Server)
 1. Clone the repository:
    ```bash
    git clone https://github.com/Amit1092tiwari/Advancesqlpuzzle.git
    cd Advancesqlpuzzle
    ```
-2. Open `Advanced SQL Puzzles/Advanced SQL Puzzles DDL.sql` in SSMS or Azure Data Studio and execute the script to create the temporary tables and sample data.
-3. Open `Advanced SQL Puzzles/Advanced SQL Puzzles Solutions.sql` to inspect and execute the solution queries.
+2. Open `Advanced SQL Puzzles/Advanced SQL Puzzles DDL.sql` and execute the script to provision sample tables and data.
+3. Open `Advanced SQL Puzzles/Advanced SQL Puzzles Solutions.sql` to inspect and execute solutions.
 
 ---
 
 ## 🤖 Continuous Integration & Verification
 
-The repository includes a GitHub Actions CI pipeline (`.github/workflows/sql-ci.yml`) that spins up an ephemeral **Microsoft SQL Server 2022** Linux container (`mcr.microsoft.com/mssql/server:2022-latest`) to validate:
+The repository includes a GitHub Actions CI pipeline ([`.github/workflows/sql-ci.yml`](file:///c:/Users/amitt/Documents/github/Advancesqlpuzzle/.github/workflows/sql-ci.yml)) that spins up an ephemeral **Microsoft SQL Server 2022** Linux container (`mcr.microsoft.com/mssql/server:2022-latest`) on every push to validate:
 - DDL compilation and syntax correctness.
 - Utility function and stored procedure creation (`CREATE OR ALTER`).
 - Integrity of all SQL puzzle schemas and seed data.
@@ -137,5 +175,5 @@ The repository includes a GitHub Actions CI pipeline (`.github/workflows/sql-ci.
 
 ## 📄 License & Attribution
 
-- Puzzles and original database concepts by **Scott Peters** ([advancedsqlpuzzles.com](https://advancedsqlpuzzles.com)).
-- Architectural refactorings, security hardening, CI/CD verification pipelines, and web directory maintained by **Amitkumar Tiwari**.
+- **Original Concept & Problem Statements:** Authored by **Scott Peters** ([advancedsqlpuzzles.com](https://advancedsqlpuzzles.com)).
+- **Enterprise Engineering, Polyglot Translations, CI/CD, & Cloud Architectures:** Refactored, expanded, and maintained by **Amitkumar Tiwari** ([GitHub Profile](https://github.com/Amit1092tiwari)).

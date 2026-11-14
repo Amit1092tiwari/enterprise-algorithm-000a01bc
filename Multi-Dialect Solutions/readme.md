@@ -4,11 +4,15 @@ This directory provides comprehensive cross-engine translations, optimizer compa
 
 ---
 
-## 📂 Contents
+## 📂 Multi-Dialect Code & Guide Index
 
-| Document | Focus | Dialects Covered |
+| Document / Script | Engine Target | Architectural Highlights |
 | :--- | :--- | :--- |
-| [`MULTI_DIALECT_GUIDE.md`](file:///c:/Users/amitt/Documents/github/Advancesqlpuzzle/Multi-Dialect%20Solutions/MULTI_DIALECT_GUIDE.md) | **Cross-Engine Architecture & Solutions** | **T-SQL** • **PostgreSQL 16+** • **Snowflake** • **Google BigQuery** • **DuckDB** |
+| [`MULTI_DIALECT_GUIDE.md`](file:///c:/Users/amitt/Documents/github/Advancesqlpuzzle/Multi-Dialect%20Solutions/MULTI_DIALECT_GUIDE.md) | **Polyglot Guide** | Side-by-side conceptual comparison, query lifecycle diagrams, and optimizer trade-offs. |
+| [`PostgreSQL_Solutions.sql`](file:///c:/Users/amitt/Documents/github/Advancesqlpuzzle/Multi-Dialect%20Solutions/PostgreSQL_Solutions.sql) | **PostgreSQL 16+** | Native `WITH RECURSIVE`, `FILTER (WHERE ...)`, `ARRAY_AGG` set equality (`=`, `&&`), and `DISTINCT ON`. |
+| [`Snowflake_Solutions.sql`](file:///c:/Users/amitt/Documents/github/Advancesqlpuzzle/Multi-Dialect%20Solutions/Snowflake_Solutions.sql) | **Snowflake Cloud DWH** | Streaming `MATCH_RECOGNIZE`, storage-pushdown `QUALIFY`, `CONNECT BY`, and `ARRAY_INTERSECTION`. |
+| [`BigQuery_Solutions.sql`](file:///c:/Users/amitt/Documents/github/Advancesqlpuzzle/Multi-Dialect%20Solutions/BigQuery_Solutions.sql) | **Google BigQuery** | Single-pass `QUALIFY`, `COUNTIF()`, `ARRAY_AGG` with `STRUCT`, and `GENERATE_ARRAY()`. |
+| [`DuckDB_Solutions.sql`](file:///c:/Users/amitt/Documents/github/Advancesqlpuzzle/Multi-Dialect%20Solutions/DuckDB_Solutions.sql) | **DuckDB In-Memory OLAP** | Vectorized query processing, `QUALIFY`, `MATCH_RECOGNIZE`, and fast analytical execution. |
 
 ---
 
@@ -32,4 +36,3 @@ This directory provides comprehensive cross-engine translations, optimizer compa
    - PostgreSQL `FILTER (WHERE ...)`.
    - BigQuery / Snowflake `COUNTIF()`.
    - T-SQL `SUM(CASE WHEN ...)`.
-
