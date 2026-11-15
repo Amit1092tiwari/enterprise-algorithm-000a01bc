@@ -79,7 +79,7 @@ HAVING  COUNT(*) FILTER (WHERE DeliveryState = 'CA') > 0
 
 
 -- ====================================================================
--- Puzzle #6: Workflow Steps (DuckDB Native MATCH_RECOGNIZE)
+-- Puzzle #6: Workflow Steps (DuckDB Double ROW_NUMBER Gaps & Islands)
 -- ====================================================================
 CREATE OR REPLACE TABLE WorkflowSteps AS
 SELECT * FROM (VALUES
@@ -92,25 +92,23 @@ SELECT * FROM (VALUES
     (2, 3, 'Complete')
 ) t(WorkflowID, StepNumber, Status);
 
+WITH RankedSteps AS (
+    SELECT  WorkflowID,
+            StepNumber,
+            Status,
+            StepNumber - ROW_NUMBER() OVER (
+                PARTITION BY WorkflowID, Status 
+                ORDER BY StepNumber
+            ) AS IslandGroup
+    FROM    WorkflowSteps
+)
 SELECT  WorkflowID,
         Status,
-        StartStep,
-        EndStep,
-        StepCount
-FROM    WorkflowSteps
-MATCH_RECOGNIZE (
-    PARTITION BY WorkflowID
-    ORDER BY StepNumber
-    MEASURES
-        FIRST(Status) AS Status,
-        FIRST(StepNumber) AS StartStep,
-        LAST(StepNumber) AS EndStep,
+        MIN(StepNumber) AS StartStep,
+        MAX(StepNumber) AS EndStep,
         COUNT(*) AS StepCount
-    ONE ROW PER MATCH
-    PATTERN (SAME_STATUS+)
-    DEFINE
-        SAME_STATUS AS Status = PREV(Status) OR PREV(Status) IS NULL
-)
+FROM    RankedSteps
+GROUP BY WorkflowID, Status, IslandGroup
 ORDER BY WorkflowID, StartStep;
 
 

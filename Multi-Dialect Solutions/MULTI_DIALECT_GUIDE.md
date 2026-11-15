@@ -22,7 +22,7 @@ This guide provides deep architectural translations and benchmarked solution str
 | Architectural Feature | Microsoft SQL Server (T-SQL) | PostgreSQL (16+) | Snowflake | Google BigQuery | DuckDB |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Window Filtering (`QUALIFY`)** | ❌ (Requires CTE/Subquery) | ❌ (Requires CTE/Subquery) | ✅ Native | ✅ Native | ✅ Native |
-| **Row Pattern (`MATCH_RECOGNIZE`)** | ❌ | ❌ | ✅ Native | ❌ | ✅ Native |
+| **Row Pattern (`MATCH_RECOGNIZE`)** | ❌ | ❌ | ✅ Native (ANSI:2016) | ❌ | ❌ (Use Double ROW_NUMBER) |
 | **Recursive Syntax** | `WITH cte AS (...)` | `WITH RECURSIVE cte AS (...)` | `WITH RECURSIVE` or `CONNECT BY` | `WITH RECURSIVE cte AS (...)` | `WITH RECURSIVE cte AS (...)` |
 | **Conditional Aggregation** | `SUM(CASE WHEN ...)` | `SUM(...) FILTER (WHERE ...)` | `SUM(IFF(...))` or `CASE WHEN` | `COUNTIF(...)` or `SUM(CASE WHEN ...)` | `SUM(...) FILTER (WHERE ...)` |
 | **Array & Struct Native Primitives** | ❌ (JSON strings) | ✅ Native Arrays | ✅ Native Arrays / Variants | ✅ Native Arrays / Structs | ✅ Native Lists / Structs |
@@ -74,11 +74,11 @@ ORDER BY WorkflowID, StartStep;
 
 ---
 
-### Strategy B: Native Row Pattern Matching `MATCH_RECOGNIZE` (Snowflake & DuckDB)
-Snowflake and DuckDB implement ANSI SQL:2016 `MATCH_RECOGNIZE`, allowing regular-expression-like state pattern matching directly over row streams without intermediate window CTEs or self-joins:
+### Strategy B: Native Row Pattern Matching `MATCH_RECOGNIZE` (Snowflake & Oracle)
+Snowflake and Oracle implement ANSI SQL:2016 `MATCH_RECOGNIZE`, allowing regular-expression-like state pattern matching directly over row streams without intermediate window CTEs or self-joins:
 
 ```sql
--- Valid on: Snowflake & DuckDB
+-- Valid on: Snowflake & Oracle (ANSI:2016 Standard)
 SELECT  WorkflowID,
         Status,
         StartStep,

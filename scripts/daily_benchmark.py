@@ -103,7 +103,7 @@ def run_benchmark():
     print(f"[PASS] Puzzle #4 (Two Predicates) - Customer {res3[0][0]} matched in {dt3:.2f} ms")
 
     # ----------------------------------------------------------------
-    # Benchmark 4: Puzzle #6 - Workflow Steps (MATCH_RECOGNIZE)
+    # Benchmark 4: Puzzle #6 - Workflow Steps (Double ROW_NUMBER Gaps & Islands)
     # ----------------------------------------------------------------
     t0 = time.perf_counter()
     con.execute("""
@@ -113,26 +113,28 @@ def run_benchmark():
         ) t(WorkflowID, StepNumber, Status);
     """)
     res4 = con.execute("""
-        SELECT WorkflowID, Status, StartStep, EndStep, StepCount
-        FROM WorkflowSteps
-        MATCH_RECOGNIZE (
-            PARTITION BY WorkflowID
-            ORDER BY StepNumber
-            MEASURES
-                FIRST(Status) AS Status,
-                FIRST(StepNumber) AS StartStep,
-                LAST(StepNumber) AS EndStep,
-                COUNT(*) AS StepCount
-            ONE ROW PER MATCH
-            PATTERN (SAME_STATUS+)
-            DEFINE
-                SAME_STATUS AS Status = PREV(Status) OR PREV(Status) IS NULL
+        WITH RankedSteps AS (
+            SELECT  WorkflowID,
+                    StepNumber,
+                    Status,
+                    StepNumber - ROW_NUMBER() OVER (
+                        PARTITION BY WorkflowID, Status 
+                        ORDER BY StepNumber
+                    ) AS IslandGroup
+            FROM    WorkflowSteps
         )
+        SELECT  WorkflowID,
+                Status,
+                MIN(StepNumber) AS StartStep,
+                MAX(StepNumber) AS EndStep,
+                COUNT(*) AS StepCount
+        FROM    RankedSteps
+        GROUP BY WorkflowID, Status, IslandGroup
         ORDER BY WorkflowID, StartStep;
     """).fetchall()
     dt4 = (time.perf_counter() - t0) * 1000
     assert len(res4) == 4, f"Expected 4 island groups, got {len(res4)}"
-    results.append(("Puzzle #6: Workflow Steps", "MATCH_RECOGNIZE Gaps & Islands", len(res4), f"{dt4:.2f} ms", "PASS"))
+    results.append(("Puzzle #6: Workflow Steps", "Double ROW_NUMBER() Gaps & Islands", len(res4), f"{dt4:.2f} ms", "PASS"))
     print(f"[PASS] Puzzle #6 (Workflow Steps) - {len(res4)} islands in {dt4:.2f} ms")
 
     # ----------------------------------------------------------------

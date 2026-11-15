@@ -35,7 +35,7 @@ Browse and search all 55 puzzles, utilities, and whitepapers via the live GitHub
 | Architectural Pattern | Microsoft SQL Server (T-SQL) | PostgreSQL (16+) | Snowflake | Google BigQuery | DuckDB |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Window Filtering (`QUALIFY`)** | ❌ (CTE Wrapping) | ❌ (CTE Wrapping) | ✅ Native Storage Pushdown | ✅ Native Storage Pushdown | ✅ Native In-Memory |
-| **Row Pattern (`MATCH_RECOGNIZE`)** | ❌ | ❌ | ✅ Native $O(N)$ Streaming | ❌ | ✅ Native Vectorized |
+| **Row Pattern (`MATCH_RECOGNIZE`)** | ❌ | ❌ | ✅ Native $O(N)$ Streaming | ❌ | ❌ (Double ROW_NUMBER) |
 | **Recursive Syntax** | `WITH cte AS (...)` | `WITH RECURSIVE` | `WITH RECURSIVE` / `CONNECT BY` | `WITH RECURSIVE` | `WITH RECURSIVE` |
 | **Conditional Aggregation** | `SUM(CASE WHEN ...)` | `SUM(...) FILTER (WHERE ...)` | `COUNT_IF(...)` / `IFF()` | `COUNTIF(...)` | `SUM(...) FILTER (WHERE ...)` |
 | **Native Array Types** | ❌ (JSON Strings) | ✅ Native Array (`=`, `&&`) | ✅ Native Array / Variant | ✅ Native Array / Struct | ✅ Native List / Struct |
