@@ -1,0 +1,2 @@
+# Dependencies for Daily Multi-Dialect Benchmark Suite
+duckdb>=0.10.0
